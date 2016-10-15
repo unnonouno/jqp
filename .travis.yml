@@ -1,0 +1,18 @@
+language: python
+
+python:
+  - "2.7"
+  - "3.2"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+
+install:
+  - pip install .
+
+script:
+  - coverage run --source=jqp,scripts setup.py test
+
+after_success:
+  - pip install coveralls
+  - coveralls
