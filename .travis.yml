@@ -9,10 +9,10 @@ python:
 
 install:
   - pip install .
+  - pip install coveralls
 
 script:
   - coverage run --source=jqp,scripts setup.py test
 
 after_success:
-  - pip install coveralls
   - coveralls
