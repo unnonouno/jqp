@@ -14,7 +14,7 @@ setup(
     name='jqp',
     version=__version__,
     description='JSON processor with Python one-liner',
-    long_description=read('README.md'),
+    long_description=read('README.rst'),
     author='Yuya Unno',
     author_email='unnonouno@gmail.com',
     url='https://github.com/unnonouno/jqp',
