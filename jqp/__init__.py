@@ -6,15 +6,19 @@ import sys
 __version__ = '0.0.0'
 
 
+def run(in_io, out_io, cmd):
+    for line in in_io:
+        if line.strip() == '':
+            continue
+        js = json.loads(line)
+        out = eval(cmd, {'j': js})
+        json.dump(out, out_io)
+        out_io.write('\n')
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('cmd')
     args = parser.parse_args()
 
-    for line in sys.stdin:
-        if line.strip() == '':
-            continue
-        js = json.loads(line)
-        out = eval(args.cmd, {'j': js})
-        json.dump(out, sys.stdout)
-        sys.stdout.write('\n')
+    run(sys.stdin, sys.stdout, args.cmd)
