@@ -3,7 +3,7 @@ import json
 import sys
 
 
-__version__ = '0.0.0'
+__version__ = '0.0.0.1'
 
 
 def run(in_io, out_io, cmd):
