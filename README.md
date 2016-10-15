@@ -1,3 +1,7 @@
+[![pypi](https://img.shields.io/pypi/v/jqp.svg)](https://pypi.python.org/pypi/jqp)
+[![travis](https://img.shields.io/travis/unnonouno/jqp/master.svg)](https://travis-ci.org/unnonouno/jqp)
+[![coveralls](https://img.shields.io/coveralls/unnonouno/jqp.svg)](https://coveralls.io/github/unnonouno/jqp)
+
 # jqp
 
 jqp is a JSON processor with Python one-liner.
