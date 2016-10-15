@@ -2,6 +2,7 @@
 
 import os
 from setuptools import setup
+
 from jqp import __version__
 
 
