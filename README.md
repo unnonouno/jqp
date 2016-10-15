@@ -11,6 +11,12 @@ jqp is a JSON processor with Python one-liner.
 
 - Python 2.7, 3.3, 3.4, 3.5
 
+## Install
+
+```
+$ pip install jqp
+```
+
 ## Usage
 
 jqp parses each line as a JSON object, and evaluates a given expression.
