@@ -9,7 +9,7 @@ jqp is a JSON processor with Python one-liner.
 
 ## Requirement
 
-- Python 2.7
+- Python 2.7, 3.3, 3.4, 3.5
 
 ## Usage
 
