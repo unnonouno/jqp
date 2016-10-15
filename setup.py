@@ -2,6 +2,7 @@
 
 import os
 from setuptools import setup
+
 from jqp import __version__
 
 
@@ -21,7 +22,7 @@ setup(
     packages=['jqp'],
     scripts=['scripts/jqp'],
     test_suite='tests',
-    classifiers = [
+    classifiers=[
         'Operating System :: OS Independent',
         'Environment :: Console',
         'Programming Language :: Python',
