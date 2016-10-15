@@ -20,6 +20,7 @@ setup(
     license='MIT License',
     packages=['jqp'],
     scripts=['scripts/jqp'],
+    test_suite='tests',
     classifiers = [
         'Operating System :: OS Independent',
         'Environment :: Console',
