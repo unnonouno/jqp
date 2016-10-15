@@ -1,7 +1,7 @@
 try:
-    import cStringIO as StringIO
+    from cStringIO import StringIO
 except ImportError:
-    import StringIO
+    from io import StringIO
 import unittest
 
 import jqp
