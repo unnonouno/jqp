@@ -10,9 +10,10 @@ install:
   - pip install .
 
 before_script:
-  - pip install coveralls
+  - pip install coveralls hacking
 
 script:
+  - flake8
   - coverage run --source=jqp,scripts setup.py test
 
 after_success:
