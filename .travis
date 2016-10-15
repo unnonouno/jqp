@@ -12,7 +12,7 @@ install:
   - pip install coveralls
 
 script:
-  - coverage run --source=jqp,scripts setup.py test
+  - python -m coverage run --source=jqp,scripts setup.py test
 
 after_success:
   - coveralls
