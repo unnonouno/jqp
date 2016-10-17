@@ -41,6 +41,10 @@ A parsed JSON object is bounded a variable named `j`.
 
 :`cmd`: An expression to evaluate.
 
+optional arguments:
+  -h, --help  show this help message and exit
+  --version   show version and exit
+
 
 Example
 =======
