@@ -6,13 +6,35 @@ import sys
 __version__ = '0.0.0.1'
 
 
+def _exit(error, return_code, message):
+    sys.stderr.write(message)
+    sys.stderr.write('\nOiginal error: ')
+    sys.stderr.write(str(error))
+    sys.stderr.write('\n')
+    sys.exit(return_code)
+
+
 def run(in_io, out_io, cmd):
-    for line in in_io:
+    for i, line in enumerate(in_io):
         if line.strip() == '':
             continue
-        js = json.loads(line)
-        out = eval(cmd, {'j': js})
-        json.dump(out, out_io)
+
+        line_no = i + 1
+        try:
+            js = json.loads(line)
+        except Exception as e:
+            _exit(e, 4, 'Parse error: line %d' % line_no)
+
+        try:
+            out = eval(cmd, {'j': js})
+        except Exception as e:
+            _exit(e, 3, 'Cannot execute command: line %d' % line_no)
+
+        try:
+            json.dump(out, out_io)
+        except Exception as e:
+            _exit(e, 3, 'Cannot dump result: line %d' % line_no)
+
         out_io.write('\n')
 
 
