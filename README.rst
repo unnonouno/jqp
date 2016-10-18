@@ -55,7 +55,7 @@ Example
     ["Taro", 10]
 
 
-Lisence
+License
 =======
 
 MIT License
