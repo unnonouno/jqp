@@ -14,7 +14,15 @@ def _exit(error, return_code, message):
     sys.exit(return_code)
 
 
-def run(in_io, out_io, cmd):
+def run(in_io, out_io, cmd, imports=[]):
+    environment = {}
+    for mod_name in imports:
+        try:
+            mod = __import__(mod_name)
+        except Exception as e:
+            _exit(e, 5, 'Cannot import module: %s' % mod_name)
+        environment[mod_name] = mod
+
     for i, line in enumerate(in_io):
         if line.strip() == '':
             continue
@@ -26,7 +34,8 @@ def run(in_io, out_io, cmd):
             _exit(e, 4, 'Parse error: line %d' % line_no)
 
         try:
-            out = eval(cmd, {'j': js})
+            environment['j'] = js
+            out = eval(cmd, environment)
         except Exception as e:
             _exit(e, 3, 'Cannot execute command: line %d' % line_no)
 
@@ -44,6 +53,10 @@ def main():
     parser.add_argument(
         '--version', action='version', version='jqp %s' % __version__,
         help='show version and exit')
+    parser.add_argument(
+        '--import', action='append',
+        help='modules to import')
+
     args = parser.parse_args()
 
-    run(sys.stdin, sys.stdout, args.cmd)
+    run(sys.stdin, sys.stdout, args.cmd, imports=getattr(args, 'import'))
