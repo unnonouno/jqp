@@ -50,4 +50,3 @@ class RunTest(unittest.TestCase):
         with self.assertRaises(SystemExit) as e:
             jqp.run(inputs, outputs, 'j', imports=['unknown_module'])
         self.assertEqual(e.exception.code, 5)
-
