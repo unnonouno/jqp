@@ -54,7 +54,7 @@ def main():
         '--version', action='version', version='jqp %s' % __version__,
         help='show version and exit')
     parser.add_argument(
-        '--import', action='append',
+        '--import', action='append', default=[],
         help='modules to import')
     parser.add_argument(
         '--sort-keys', '-S', action='store_true',
