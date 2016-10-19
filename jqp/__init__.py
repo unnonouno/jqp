@@ -14,7 +14,7 @@ def _exit(error, return_code, message):
     sys.exit(return_code)
 
 
-def run(in_io, out_io, cmd, imports=[]):
+def run(in_io, out_io, cmd, imports=[], sort_keys=False):
     environment = {}
     for mod_name in imports:
         try:
@@ -40,7 +40,7 @@ def run(in_io, out_io, cmd, imports=[]):
             _exit(e, 3, 'Cannot execute command: line %d' % line_no)
 
         try:
-            json.dump(out, out_io)
+            json.dump(out, out_io, sort_keys=sort_keys)
         except Exception as e:
             _exit(e, 3, 'Cannot dump result: line %d' % line_no)
 
@@ -56,7 +56,11 @@ def main():
     parser.add_argument(
         '--import', action='append',
         help='modules to import')
+    parser.add_argument(
+        '--sort-keys', '-S', action='store_true',
+        help='sort keys in objects when the command print it')
 
     args = parser.parse_args()
 
-    run(sys.stdin, sys.stdout, args.cmd, imports=getattr(args, 'import'))
+    run(sys.stdin, sys.stdout, args.cmd, imports=getattr(args, 'import'),
+        sort_keys=args.sort_keys)

@@ -45,6 +45,7 @@ optional arguments:
   -h, --help  show this help message and exit
   --version   show version and exit
   --import IMPORT  modules to import
+  --sort-keys, -S  sort keys in objects when the command print it
 
 
 Example

@@ -23,6 +23,14 @@ class RunTest(unittest.TestCase):
         jqp.run(inputs, outputs, 're.sub("a", "A", j["name"])', imports=['re'])
         self.assertEqual(outputs.getvalue(), '"TAro"\n')
 
+    def test_sort_keys(self):
+        # This command ignores input
+        inputs = StringIO('''1
+''')
+        outputs = StringIO()
+        jqp.run(inputs, outputs, '{"a": 0, "b": 0, "c": 0}', sort_keys=True)
+        self.assertEqual(outputs.getvalue(), '{"a": 0, "b": 0, "c": 0}\n')
+
     def test_parse_error(self):
         inputs = StringIO('invalid\n')
         outputs = StringIO()
