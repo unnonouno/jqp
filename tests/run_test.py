@@ -39,6 +39,13 @@ class RunTest(unittest.TestCase):
         jqp.run(inputs, outputs, '"a"', raw_output=True)
         self.assertEqual(outputs.getvalue(), 'a\n')
 
+    def test_join_output(self):
+        inputs = StringIO('''1
+2''')
+        outputs = StringIO()
+        jqp.run(inputs, outputs, 'j', join_output=True)
+        self.assertEqual(outputs.getvalue(), '12')
+
     def test_parse_error(self):
         inputs = StringIO('invalid\n')
         outputs = StringIO()
