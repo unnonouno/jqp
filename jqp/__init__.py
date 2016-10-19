@@ -9,7 +9,7 @@ __version__ = '0.0.0.1'
 if sys.version_info.major >= 3:
     _basestring = str
 else:
-    _basestring = basetring  # NOQA
+    _basestring = basestring  # NOQA
 
 
 def _exit(error, return_code, message):
