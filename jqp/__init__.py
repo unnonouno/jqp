@@ -20,7 +20,8 @@ def _exit(error, return_code, message):
     sys.exit(return_code)
 
 
-def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_output=False):
+def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_output=False,
+        join_output=False):
     environment = {}
     for mod_name in imports:
         try:
@@ -53,7 +54,8 @@ def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_output=False):
             except Exception as e:
                 _exit(e, 3, 'Cannot dump result: line %d' % line_no)
 
-        out_io.write('\n')
+        if not join_output:
+            out_io.write('\n')
 
 
 def main():
@@ -71,8 +73,12 @@ def main():
     parser.add_argument(
         '--raw-output', '-r', action='store_true',
         help='when a result is string, the command shows a raw string')
+    parser.add_argument(
+        '--join-output', '-j', action='store_true',
+        help='do not show newlines')
 
     args = parser.parse_args()
 
     run(sys.stdin, sys.stdout, args.cmd, imports=getattr(args, 'import'),
-        sort_keys=args.sort_keys, raw_output=args.raw_output)
+        sort_keys=args.sort_keys, raw_output=args.raw_output,
+        join_output=args.join_output)
