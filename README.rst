@@ -46,6 +46,7 @@ optional arguments:
   --version   show version and exit
   --import IMPORT  modules to import
   --sort-keys, -S  sort keys in objects when the command print it
+  --raw-output, -r   when a result is string, the command shows a raw string
   --join-output, -j  do not show newlines
 
 
