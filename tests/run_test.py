@@ -32,8 +32,7 @@ class RunTest(unittest.TestCase):
         self.assertEqual(outputs.getvalue(), '{"a": 0, "b": 0, "c": 0}\n')
 
     def test_raw_input(self):
-        inputs = StringIO(''' a 
-''')
+        inputs = StringIO(' a \n')
         outputs = StringIO()
         jqp.run(inputs, outputs, 'j', raw_input_mode=True)
         self.assertEqual(outputs.getvalue(), '" a "\n')
