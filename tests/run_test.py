@@ -31,6 +31,12 @@ class RunTest(unittest.TestCase):
         jqp.run(inputs, outputs, '{"a": 0, "b": 0, "c": 0}', sort_keys=True)
         self.assertEqual(outputs.getvalue(), '{"a": 0, "b": 0, "c": 0}\n')
 
+    def test_raw_input(self):
+        inputs = StringIO(' a \n')
+        outputs = StringIO()
+        jqp.run(inputs, outputs, 'j', raw_input_mode=True)
+        self.assertEqual(outputs.getvalue(), '" a "\n')
+
     def test_raw_output(self):
         # This command ignores input
         inputs = StringIO('''1

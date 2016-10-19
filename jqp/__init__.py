@@ -20,8 +20,8 @@ def _exit(error, return_code, message):
     sys.exit(return_code)
 
 
-def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_output=False,
-        join_output=False):
+def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_input_mode=False,
+        raw_output=False, join_output=False):
     environment = {}
     for mod_name in imports:
         try:
@@ -35,10 +35,13 @@ def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_output=False,
             continue
 
         line_no = i + 1
-        try:
-            js = json.loads(line)
-        except Exception as e:
-            _exit(e, 4, 'Parse error: line %d' % line_no)
+        if raw_input_mode:
+            js = line.rstrip('\n\r')
+        else:
+            try:
+                js = json.loads(line)
+            except Exception as e:
+                _exit(e, 4, 'Parse error: line %d' % line_no)
 
         try:
             environment['j'] = js
@@ -71,6 +74,9 @@ def main():
         '--sort-keys', '-S', action='store_true',
         help='sort keys in objects when the command print it')
     parser.add_argument(
+        '--raw-input', '-R', action='store_true',
+        help='pass each line text as a string instead of parsing it as JSON')
+    parser.add_argument(
         '--raw-output', '-r', action='store_true',
         help='when a result is string, the command shows a raw string')
     parser.add_argument(
@@ -80,5 +86,5 @@ def main():
     args = parser.parse_args()
 
     run(sys.stdin, sys.stdout, args.cmd, imports=getattr(args, 'import'),
-        sort_keys=args.sort_keys, raw_output=args.raw_output,
-        join_output=args.join_output)
+        sort_keys=args.sort_keys, raw_input_mode=args.raw_input,
+        raw_output=args.raw_output, join_output=args.join_output)
