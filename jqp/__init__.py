@@ -54,7 +54,8 @@ def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_input_mode=False,
         else:
             try:
                 json.dump(
-                    out, out_io, ensure_ascii=ascii_output, sort_keys=sort_keys)
+                    out, out_io, ensure_ascii=ascii_output,
+                    sort_keys=sort_keys)
             except Exception as e:
                 _exit(e, 3, 'Cannot dump result: line %d' % line_no)
 
