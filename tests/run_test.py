@@ -52,6 +52,15 @@ class RunTest(unittest.TestCase):
         jqp.run(inputs, outputs, 'j', join_output=True)
         self.assertEqual(outputs.getvalue(), '12')
 
+    def test_ascii(self):
+        # This command ignores input
+        inputs = StringIO('''1
+''')
+        outputs = StringIO()
+        # This is a Japanese character
+        jqp.run(inputs, outputs, u'"\u3042"', ascii_output=True)
+        self.assertEqual(outputs.getvalue(), '"\\u3042"\n')
+
     def test_parse_error(self):
         inputs = StringIO('invalid\n')
         outputs = StringIO()

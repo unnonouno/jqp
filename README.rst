@@ -45,6 +45,7 @@ optional arguments:
   -h, --help  show this help message and exit
   --version   show version and exit
   --import IMPORT  modules to import
+  --ascii-output, -a  with this option, jqp ensures ASCII output
   --sort-keys, -S  sort keys in objects when the command print it
   --raw-input, -R  pass each line text as a string instead of parsing it as JSON
   --raw-output, -r   when a result is string, the command shows a raw string

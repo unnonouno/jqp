@@ -21,7 +21,7 @@ def _exit(error, return_code, message):
 
 
 def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_input_mode=False,
-        raw_output=False, join_output=False):
+        raw_output=False, join_output=False, ascii_output=True):
     environment = {}
     for mod_name in imports:
         try:
@@ -53,7 +53,9 @@ def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_input_mode=False,
             out_io.write(out)
         else:
             try:
-                json.dump(out, out_io, sort_keys=sort_keys)
+                json.dump(
+                    out, out_io, ensure_ascii=ascii_output,
+                    sort_keys=sort_keys)
             except Exception as e:
                 _exit(e, 3, 'Cannot dump result: line %d' % line_no)
 
@@ -77,6 +79,9 @@ def main():
         '--raw-input', '-R', action='store_true',
         help='pass each line text as a string instead of parsing it as JSON')
     parser.add_argument(
+        '--ascii-output', '-a', action='store_true',
+        help='with this option, jqp ensures ASCII output')
+    parser.add_argument(
         '--raw-output', '-r', action='store_true',
         help='when a result is string, the command shows a raw string')
     parser.add_argument(
@@ -87,4 +92,5 @@ def main():
 
     run(sys.stdin, sys.stdout, args.cmd, imports=getattr(args, 'import'),
         sort_keys=args.sort_keys, raw_input_mode=args.raw_input,
-        raw_output=args.raw_output, join_output=args.join_output)
+        raw_output=args.raw_output, join_output=args.join_output,
+        ascii_output=args.ascii_output)
