@@ -21,7 +21,7 @@ def _exit(error, return_code, message):
 
 
 def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_input_mode=False,
-        raw_output=False, join_output=False, ascii_output=True):
+        raw_output=False, join_output=False, ascii_output=True, indent=None):
     environment = {}
     for mod_name in imports:
         try:
@@ -55,7 +55,7 @@ def run(in_io, out_io, cmd, imports=[], sort_keys=False, raw_input_mode=False,
             try:
                 json.dump(
                     out, out_io, ensure_ascii=ascii_output,
-                    sort_keys=sort_keys)
+                    sort_keys=sort_keys, indent=indent)
             except Exception as e:
                 _exit(e, 3, 'Cannot dump result: line %d' % line_no)
 
@@ -72,6 +72,9 @@ def main():
     parser.add_argument(
         '--import', action='append', default=[],
         help='modules to import')
+    parser.add_argument(
+        '--indent', type=int, default=4,
+        help='use the given number of indent')
     parser.add_argument(
         '--sort-keys', '-S', action='store_true',
         help='sort keys in objects when the command print it')
@@ -93,4 +96,4 @@ def main():
     run(sys.stdin, sys.stdout, args.cmd, imports=getattr(args, 'import'),
         sort_keys=args.sort_keys, raw_input_mode=args.raw_input,
         raw_output=args.raw_output, join_output=args.join_output,
-        ascii_output=args.ascii_output)
+        ascii_output=args.ascii_output, indent=args.indent)

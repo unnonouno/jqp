@@ -61,6 +61,13 @@ class RunTest(unittest.TestCase):
         jqp.run(inputs, outputs, u'"\u3042"', ascii_output=True)
         self.assertEqual(outputs.getvalue(), '"\\u3042"\n')
 
+    def test_indent(self):
+        inputs = StringIO('''[1]
+''')
+        outputs = StringIO()
+        jqp.run(inputs, outputs, 'j', indent=4)
+        self.assertEqual(outputs.getvalue(), '[\n    1\n]\n')
+
     def test_parse_error(self):
         inputs = StringIO('invalid\n')
         outputs = StringIO()
