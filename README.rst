@@ -58,7 +58,10 @@ Example
 ::
 
     % echo '{"name": "Taro", "age": 10}' | jqp '[j["name"], j["age"]]'
-    ["Taro", 10]
+    [
+        "Taro",
+        10
+    ]
 
 
 License
