@@ -17,4 +17,5 @@ jobs:
       - run: pip install coveralls hacking
       - run: flake8
       - run: coverage run --source=jqp,scripts setup.py test
+      - env: GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: coveralls
