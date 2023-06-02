@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "jqp"
+version = "0.1.0"
+description = "JSON processor with Python one-liner"
+license = "MIT"
+authors = ["Yuya Unno <unnonouno@gmail.com>"]
+readme = "README.rst"
+repository = "https://github.com/unnonouno/jqp"
+classifiers = [
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Programming Language :: Python",
+    "License :: OSI Approved :: MIT License",
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Information Technology",
+    "Topic :: Utilities"
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
