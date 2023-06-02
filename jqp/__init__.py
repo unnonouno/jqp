@@ -14,7 +14,7 @@ else:
 
 def _exit(error, return_code, message):
     sys.stderr.write(message)
-    sys.stderr.write('\nOiginal error: ')
+    sys.stderr.write('\nOriginal error: ')
     sys.stderr.write(str(error))
     sys.stderr.write('\n')
     sys.exit(return_code)
