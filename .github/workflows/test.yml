@@ -13,10 +13,13 @@ jobs:
       - uses: actions/setup-python@v4 
         with:
           python-version: ${{ matrix.python-version }}
-      - run: pip install .
+      - run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+      - run: poetry install
       - run: pip install hacking
       - run: flake8
-      - run: pytest --cov=jqp
-      - run: coveralls
+      - run: poetry run pytest --cov=jqp
+      - run: poetry run coveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
