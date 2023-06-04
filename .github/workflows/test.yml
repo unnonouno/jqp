@@ -17,8 +17,7 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           echo "$HOME/.poetry/bin" >> $GITHUB_PATH
       - run: poetry install
-      - run: pip install hacking
-      - run: flake8
+      - run: poetry run pysen run lint
       - run: poetry run pytest --cov=jqp
       - run: poetry run coveralls
         env:
