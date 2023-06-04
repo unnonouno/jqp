@@ -31,6 +31,9 @@ pytest-cov = "^4.1.0"
 coveralls = "^3.3.1"
 pysen = "0.10.4"
 
+[tool.poetry.scripts]
+jqp = "jqp:main"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
