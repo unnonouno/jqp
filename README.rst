@@ -1,8 +1,8 @@
 .. image:: https://img.shields.io/pypi/v/jqp.svg
    :target: https://pypi.python.org/pypi/jqp
 
-.. image:: https://travis-ci.org/unnonouno/jqp.svg?branch=master
-   :target: https://travis-ci.org/unnonouno/jqp
+.. image:: https://github.com/github/docs/actions/workflows/test.yml/badge.svg
+   :target: https://github.com/unnonouno/jqp/actions/workflows/test.yml
 
 .. image:: https://coveralls.io/repos/unnonouno/jqp/badge.png?branch=master
    :target: https://coveralls.io/r/unnonouno/jqp?branch=master
