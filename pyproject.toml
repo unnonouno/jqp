@@ -19,13 +19,17 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
+black = "21.10b0"
+flake8 = "4.0.1"
+isort = "5.10.1"
+mypy = "0.910"
 
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
 pytest-cov = "^4.1.0"
 coveralls = "^3.3.1"
-pysen = {version = "0.10.4", extras = ["lint"]}
+pysen = "0.10.4"
 
 [build-system]
 requires = ["poetry-core"]
