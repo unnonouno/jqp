@@ -14,6 +14,35 @@ def test1() -> None:
     assert outputs.getvalue() == '"Taro"\n'
 
 
+def test_multiline() -> None:
+    inputs = StringIO(
+        """{
+  "name": "Taro",
+  "age": 10
+}
+"""
+    )
+    outputs = StringIO()
+    jqp.run(inputs, outputs, 'j["name"]')
+    assert outputs.getvalue() == '"Taro"\n'
+
+
+def test_multiline_mulit_ojbect() -> None:
+    inputs = StringIO(
+        """{
+  "name": "Taro",
+  "age": 10
+}
+
+  {
+  "name": "Jiro",  "age": 8}
+"""
+    )
+    outputs = StringIO()
+    jqp.run(inputs, outputs, 'j["name"]')
+    assert outputs.getvalue() == '"Taro"\n"Jiro"\n'
+
+
 def test_import() -> None:
     inputs = StringIO(
         """{"name": "Taro", "age": 10}

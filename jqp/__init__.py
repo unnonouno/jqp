@@ -1,7 +1,9 @@
 import argparse
 import json
+import re
 import sys
-from typing import Optional, Sequence, TextIO
+from dataclasses import dataclass
+from typing import Any, Iterator, Optional, Sequence, TextIO
 
 __version__ = "0.1.0"
 
@@ -12,6 +14,43 @@ def _exit(error: Exception, return_code: int, message: str) -> None:
     sys.stderr.write(str(error))
     sys.stderr.write("\n")
     sys.exit(return_code)
+
+
+def _skip_space(s: str) -> int:
+    m = re.match(r"[ \t\n\r]*", s)
+    assert m is not None
+    return m.end()
+
+
+@dataclass
+class Input:
+    obj: Any
+    line_no: int
+
+
+def _iter_data(in_io: TextIO) -> Iterator[Input]:
+    s = in_io.read()
+    decoder = json.JSONDecoder()
+    line_no = 1
+    index = 0
+    while True:
+        n_spaces = _skip_space(s[index:])
+        line_no += s.count("\n", index, index + n_spaces)
+        index += n_spaces
+        if index == len(s):
+            break
+        try:
+            obj, end = decoder.raw_decode(s, index)
+        except json.JSONDecodeError as e:
+            _exit(e, 4, "Parse error: line: %d" % line_no)
+        yield Input(obj, line_no)
+        line_no += s.count("\n", index, end)
+        index = end
+
+
+def _iter_raw(in_io: TextIO) -> Iterator[Input]:
+    for i, line in enumerate(in_io):
+        yield Input(line.rstrip("\n\r"), i + 1)
 
 
 def run(
@@ -34,24 +73,13 @@ def run(
             _exit(e, 5, "Cannot import module: %s" % mod_name)
         environment[mod_name] = mod
 
-    for i, line in enumerate(in_io):
-        if line.strip() == "":
-            continue
-
-        line_no = i + 1
-        if raw_input_mode:
-            js = line.rstrip("\n\r")
-        else:
-            try:
-                js = json.loads(line)
-            except Exception as e:
-                _exit(e, 4, "Parse error: line %d" % line_no)
-
+    iter_data = _iter_raw if raw_input_mode else _iter_data
+    for in_data in iter_data(in_io):
         try:
-            environment["j"] = js
+            environment["j"] = in_data.obj
             out = eval(cmd, environment)
         except Exception as e:
-            _exit(e, 3, "Cannot execute command: line %d" % line_no)
+            _exit(e, 3, "Cannot execute command: line %d" % in_data.line_no)
 
         if raw_output and isinstance(out, str):
             out_io.write(out)
@@ -65,7 +93,7 @@ def run(
                     indent=indent,
                 )
             except Exception as e:
-                _exit(e, 3, "Cannot dump result: line %d" % line_no)
+                _exit(e, 3, "Cannot dump result: line %d" % in_data.line_no)
 
         if not join_output:
             out_io.write("\n")
